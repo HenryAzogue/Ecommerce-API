@@ -1,4 +1,5 @@
 const OrdersServices = require('../services/orders.service');
+const { Users, ProductInOrder, Products } = require('../models');
 
 const getAllOrders = async (req, res, next)=> {
   try {
