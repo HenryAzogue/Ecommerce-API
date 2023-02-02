@@ -1,9 +1,24 @@
-const { Products } = require('../models');
+const { Users, Products } = require('../models');
+const { Sequelize, Op }= require('sequelize');
 
 class ProductServices {
   static async getAll() {
     try {
-      const result = await Products.finAll();
+      const result = await Products.findAll({
+        where:{
+          availableQty: { [Sequelize.Op.gt]: 0 }
+        },
+        attributte:{
+          exclude: ['idUser']
+        },
+        include:{
+          model: Users,
+          as:    'users',
+          attributes:{
+            exclude: ['email', 'password', 'isConfirmed']
+          }
+        }
+      });
       return result;
     } catch (error) {
       throw error;
