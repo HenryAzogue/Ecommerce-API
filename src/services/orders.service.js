@@ -8,6 +8,7 @@ class OrdersServices {
         attributes: ['totalPrice', 'status'],
         include:{
           model:      ProductInOrder,
+          as:         'productInOrder',
           attributes: ['price', 'quantity'],
           include: {
             model: Products,
@@ -21,4 +22,6 @@ class OrdersServices {
       throw error;
     }
   }
-}
+};
+
+module.exports = OrdersServices;
