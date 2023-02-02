@@ -3,7 +3,6 @@ const cors    = require('cors');
 const morgan  = require('morgan');
 const db      = require('./utils/database');
 const initModels = require('./models/init.model');
-const authRoutes = require('./routes/auth.route');
 
 const app = express();
 
@@ -20,13 +19,5 @@ db.sync({ force: false })
 db.authenticate()
   .then(()=> console.log('Base de datos autenticada'))
   .catch((error) => console.log(error));
-
-
-
-app.get('/', (req, res)=>{
-  res.json({message: "Welcome to my server"});
-});
-
-app.use('/api/v1/auth', authRoutes);
 
 module.exports = app;
