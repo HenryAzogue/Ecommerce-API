@@ -20,6 +20,7 @@ class UsersServices {
   static async create(newUser){
     try {
       const result = await Users.create(newUser);
+      console.log(result);
       return result;
     } catch (error) {
       throw error;

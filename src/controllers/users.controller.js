@@ -1,6 +1,6 @@
 const UsersServices = require('../services/users.service');
 
-const getAllUsers = async (req, ser, next)=> {
+const getAllUsers = async (req, res, next)=> {
   try {
     const users = await UsersServices.getAll();
     res.json(users);
@@ -9,7 +9,7 @@ const getAllUsers = async (req, ser, next)=> {
   }
 };
 
-const getUserById = async (req, ser, next)=> {
+const getUserById = async (req, res, next)=> {
   try {
     const id = req.params;
     const user = await UsersServices.getById(id);
@@ -19,9 +19,11 @@ const getUserById = async (req, ser, next)=> {
   }
 };
 
-const createUser = async (req, ser, next)=> {
+const createUser = async (req, res, next)=> {
   try {
-    const newUser = req.body;
+    //const {username, email, password} = req.body;
+    const  newUser = req.body;
+    console.log(newUser);
     const user = await UsersServices.create(newUser);
     res.status(201).json(user);
   } catch (error) {
@@ -29,7 +31,7 @@ const createUser = async (req, ser, next)=> {
   }
 };
 
-const deleteUser = async (req, ser, next)=> {
+const deleteUser = async (req, res, next)=> {
   try {
     const id = req.params;
     const user = await UsersServices.delete(id);

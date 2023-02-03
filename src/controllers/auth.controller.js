@@ -9,10 +9,10 @@ const register = async ( req, res)=> {
     if( result ) {
       res.status(201).json({message: 'user created'});
       await transporter.sendMail({
-        to: result.email,
-        from: 'ian.rosas@academlo.com',
-        subjetc: 'Email confirmation',
-        html: "<h1>Bienvenido a la mejor app de chat creada por mi</h1> <p>Tienes que confirmar tu email</p><p> Solo haz click en el siguiente <a href='#'' target='new_blanck'> enlace </a>",
+        to: 'hnrazogue@gmail.com',
+        from: result.emai,
+        subjetc: 'Wellcome a ecommerce',
+        html: "<h1>Thanks for trusting us</h1>",
       });
     } else {
       res.status(400).json({message: 'something wrong'});

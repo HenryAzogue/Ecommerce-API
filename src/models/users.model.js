@@ -53,7 +53,7 @@ const bcrypt = require('bcrypt');
  */
 
 
-const User = db.define('user', {
+const User = db.define('users', {
   id: {
     type:          DataTypes.INTEGER,
     primaryKey:    true,
@@ -80,6 +80,8 @@ const User = db.define('user', {
    field:        'is_confirmed',
    defaultValue: false
   }
+},{
+  timestamps: false
 },{
   hooks: {
     beforeCreate: ( user, options )=> { 
