@@ -1,7 +1,7 @@
 const authRoutes     = require('./auth.route');
 const usersRoutes    = require('./users.route');
 const productsRoutes = require('./products.route');
-const ordersRoutes   = require('./orders.route');
+const ordersRoutes   = require('./orders.route'); //ALOMEJOR ESTA MAL EL CONTROLADOR ? COMO LO TIENES
 
 const routerApi = (app)=> {
   app.use('/api/v1/auth', authRoutes);

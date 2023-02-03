@@ -10,4 +10,4 @@ const getAllOrders = async (req, res, next)=> {
   }
 }
 
-module.exports = { getAllOrders };
+module.exports = getAllOrders; 
