@@ -1,23 +1,31 @@
-const { Users, Products, Cars, Orders, ProductInCar, ProductInOrder } = require('./index');
+const Users = require('./users.model');
+const Products = require('./products.model');
+const Cart = require('./carts.model');
+const Orders = require('./orders.model');
+const ProductInCart = require('./productInCart.model');
+const ProductInOrder = require('./productInOrder.model');
 
 const initModels = ()=> {
-  Users.hasOne(Cars, { as:'cars', foreignKey: 'id_user' });
+  Users.hasMany(Products, {as: 'product', foreignKey: 'id_user'});
+  Products.belongsTo(Users, {as: 'user', foreignKey: 'id_user'});
 
-  Users.belongsTo(Products, { as: 'products', foreignKey: 'id_user' });
-  Products.hasMany(Users, { as: 'users', foreignKey: 'id_user' });
+  Users.hasMany(Orders, {as:'order', foreignKey: 'id_user'});
+  Orders.belongsTo(Users, {as: 'user', foreignKey: 'id_user'});
+  
+  Users.hasOne(Cart, {as:'cart', foreignKey:'id_user'});
+  Cart.belongsTo(Users, {as: 'user', foreignKey: 'id_user'});
 
-  Users.belongsTo(Orders, { as: 'orders', foreignKey: 'id_user' });
-  Orders.hasMany(Users, { as: 'users', foreignKey: 'id_user' });
+  Products.hasMany(ProductInCart, {as: 'product_cart', foreignKey: 'id_product'});
+  ProductInCart.belongsTo(Products, {as: 'product', foreignKey: 'id_product'});
 
-  Products.belongsTo(ProductInCar, { as: 'productInCar', foreignKey: 'id_product' });
-  ProductInCar.hasMany(Products, { as: 'products', foreignKey: 'id_product' });
-  Cars.belongsTo(ProductInCar, { as:'productInCar', foreignKey: 'id_car' });
-  ProductInCar.hasMany(Cars, { as: 'cars', foreignKey: 'id_car' });
+  ProductInCart.belongsTo(Cart, {as: 'cart', foreignKey: 'id_cart'});
+  Cart.belongsTo(ProductInCart, {as:'product_cart', foreignKey: 'id_cart'});
 
-  Products.belongsTo(ProductInOrder, { as: 'productInOrder', foreignKey: 'idProduct' });
-  ProductInOrder.hasMany(Products, { as: 'products', foreignKey: 'idProduct'} );
-  Orders.belongsTo(ProductInOrder, { as: 'productInOrder', foreignKey: 'idOrder'} );
-  ProductInOrder.hasMany(Orders, { as:'orders', foreignKey: 'idOrder'} );
-}
+  Products.hasMany(ProductInOrder, {as:'product_order', foreignKey: 'id_product'});
+  ProductInOrder.belongsTo(Products, {as:'product', foreignKey: 'id_product'});
+
+  ProductInOrder.belongsTo(Orders, {as: 'order', foreignKey: 'id_order'});
+  Orders.hasMany(ProductInOrder, {as: 'product_order', foreignKey: 'id_order'});
+};
 
 module.exports = initModels;

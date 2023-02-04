@@ -2,7 +2,7 @@ const express = require('express');
 const cors    = require('cors');
 const morgan  = require('morgan');
 const db      = require('./utils/database');
-const initModels = require('./models/init.model');
+const initModel = require('./models/init.Model');
 const { handleError } = require('./middlewares');
 const routerApi = require('./routes/index');
 
@@ -12,9 +12,9 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('tiny'));
 
-initModels(app);
+initModel();
 
-db.sync({ force: false })
+db.sync()
 .then(()=> console.log('Base de datos sincronizada'))
 .catch((error)=> console.log(error));
 

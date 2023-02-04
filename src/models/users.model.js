@@ -1,6 +1,6 @@
-const db = require('../utils/database');
+const db            = require('../utils/database');
 const { DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
+const bcrypt        = require('bcrypt');
 
 /**
  * @openapi
@@ -53,11 +53,12 @@ const bcrypt = require('bcrypt');
  */
 
 
-const User = db.define('users', {
+const Users = db.define('users', {
   id: {
     type:          DataTypes.INTEGER,
     primaryKey:    true,
-    autoIncrement: true
+    autoIncrement: true,
+    allowNull:     false
   },
   username: {
     type:      DataTypes.STRING(20),
@@ -92,4 +93,4 @@ const User = db.define('users', {
   }
 })
 
-module.exports = User; 
+module.exports = Users; 

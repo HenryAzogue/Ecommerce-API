@@ -1,4 +1,6 @@
-const { Orders, ProductInOrder, Products } = require('../models');
+const Orders = require('../models/orders.model');
+const ProductInOrder = require('../models/productInOrder.model');
+const Products = require('../models/products.model');
 
 class OrdersServices {
   static async getAll (idUser){
@@ -8,11 +10,11 @@ class OrdersServices {
         attributes: ['totalPrice', 'status'],
         include:{
           model:      ProductInOrder,
-          as:         'productInOrder',
+          as:         'waiting_product',
           attributes: ['price', 'quantity'],
           include: {
             model: Products,
-            as:    'products',
+            as:    'waiting_products',
             attributes: ['name', 'price']
           }
         }

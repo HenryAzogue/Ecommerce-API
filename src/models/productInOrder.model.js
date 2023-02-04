@@ -1,5 +1,7 @@
 const db = require('../utils/database');
 const { DataTypes } = require('sequelize');
+const Orders = require('./orders.model') 
+const Products = require('./products.model');
 
 const ProductInOrder = db.define('productInOrder', {
   id: {
@@ -11,25 +13,36 @@ const ProductInOrder = db.define('productInOrder', {
   idProduct: {
     type:          DataTypes.INTEGER,
     allowNull:     false,
-    field:         'id_product'
+    field:         'id_product',
+    references: {
+      model:     Products,
+      key:       'id'
+    }
   },
   idOrder: {
     type:          DataTypes.INTEGER,
     allowNull:     false,
-    field:         'id_order'
+    field:         'id_order',
+    references: {
+      model:     Orders,
+      key:       'id'
+    }
   },
   quantity: {
     type:          DataTypes.INTEGER,
     allowNull:     false
   },
   price: {
-    type:          DataTypes.DECIMAL,
+    type:          DataTypes.FLOAT,
     allowNull:     false 
   },
   status: {
     type:          DataTypes.BOOLEAN,
     defaultValue:  false
   }
+},
+{
+  timestamps: false
 });
 
 module.exports = ProductInOrder;

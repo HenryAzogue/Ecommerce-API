@@ -1,8 +1,8 @@
-const { Car } = require('../models');
+const Cart = require('../models/carts.model');
 
 const getUsersCartId = async (req)=> {
   const { idUser } = req;
-  const cart = await Car.findOne({ where: {idUser} });
+  const cart = await Cart.findOne({ where: {idUser} });
   return cart;
 };
 

@@ -1,4 +1,5 @@
-const { Users, Products } = require('../models');
+const Users = require('../models/users.model');
+const Products = require('../models/products.model');
 const { Sequelize, Op }= require('sequelize');
 
 class ProductServices {
@@ -13,7 +14,7 @@ class ProductServices {
         },
         include:{
           model: Users,
-          as:    'users',
+          as:    'shopper',
           attributes:{
             exclude: ['email', 'password', 'isConfirmed']
           }

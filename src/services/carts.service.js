@@ -1,18 +1,20 @@
-const { ProductInCar, Products, Cars}= require('../models');
+const ProductInCar = require('../models/productInCart.model');
+const Products = require('../models/products.model');
+const Cart = require('../models/carts.model');
 
 class CartsServices {
   static async getByUserId(idUser){
     try {
-      const result = await Cars.findOne({
+      const result = await Cart.findOne({
         where: { idUser},
         attributes: ['totalPrice'],
         include: {
           model: ProductInCar,
-          as: 'productInCar',
+          as: 'waiting_cart',
           attributes: ['quantity', 'price'],
           include: {
             model: Products,
-            as: 'products',
+            as: 'waiting_buy',
             attributes: [ 'id','name', 'price']
           }
         }

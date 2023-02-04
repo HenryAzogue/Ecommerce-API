@@ -1,7 +1,8 @@
-const db = require('../utils/database');
+const db            = require('../utils/database');
 const { DataTypes } = require('sequelize');
+const Users         = require('./users.model');
 
-const Product = db.define('product', {
+const Products = db.define('products', {
   id: {
     primaryKey:    true,
     type:          DataTypes.INTEGER,
@@ -17,12 +18,13 @@ const Product = db.define('product', {
     allowNull:     false
   },
   price: {
-    type:          DataTypes.DECIMAL,
+    type:          DataTypes.FLOAT,
     allowNull:     false
   },
   availableQty: {
     type:          DataTypes.INTEGER,
-    allowNull:     false
+    allowNull:     false,
+    field:         'available_qty'
   },
   status: {
     type:          DataTypes.BOOLEAN,
@@ -31,8 +33,12 @@ const Product = db.define('product', {
   idUser: {
     type:          DataTypes.INTEGER,
     allowNull:    false,
-    field:        'id_user'
+    field:        'id_user',
+    references: {
+      model:  Users,
+      key:    'id'
+    }
   }
 });
 
-module.exports = Product;
+module.exports = Products;

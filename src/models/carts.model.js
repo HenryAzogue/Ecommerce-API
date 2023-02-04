@@ -1,7 +1,8 @@
-const db = require('../utils/database');
+const db            = require('../utils/database');
 const { DataTypes } = require('sequelize');
+const Users         = require('./users.model')
 
-const Car = db.define('car',{
+const Cart = db.define('cart',{
   id: {
     primaryKey:    true,
     type:          DataTypes.INTEGER,
@@ -11,12 +12,16 @@ const Car = db.define('car',{
   idUser: {
     type:          DataTypes. INTEGER,
     allowNull:     false,
-    field:         'id_user'
+    field:         'id_user',
+    references: {
+      model:    Users,
+      key:      'id'
+    }
   },
   totalPrice: {
-    type:          DataTypes.DECIMAL,
+    type:          DataTypes.FLOAT,
     allowNull:     true
   }
 });
 
-module.exports = Car;
+module.exports = Cart;

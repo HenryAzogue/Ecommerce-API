@@ -9,8 +9,8 @@ const register = async ( req, res)=> {
     if( result ) {
       res.status(201).json({message: 'user created'});
       await transporter.sendMail({
-        to: 'hnrazogue@gmail.com',
-        from: result.emai,
+        to: result.emai,
+        from: 'hnrazogue@gmail.com',
         subjetc: 'Wellcome a ecommerce',
         html: "<h1>Thanks for trusting us</h1>",
       });
