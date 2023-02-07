@@ -1,20 +1,20 @@
 const ProductInCar = require('../models/productInCart.model');
 const Products = require('../models/products.model');
-const Cart = require('../models/carts.model');
+const Carts = require('../models/carts.model');
 
 class CartsServices {
   static async getByUserId(idUser){
     try {
-      const result = await Cart.findOne({
+      const result = await Carts.findOne({
         where: { idUser},
         attributes: ['totalPrice'],
         include: {
           model: ProductInCar,
-          as: 'waiting_cart',
+          as: 'product_cart',
           attributes: ['quantity', 'price'],
           include: {
             model: Products,
-            as: 'waiting_buy',
+            as: 'product',
             attributes: [ 'id','name', 'price']
           }
         }
@@ -25,10 +25,14 @@ class CartsServices {
     }
   }
 
-  static async addToCart (productInCar) {
+  static async addToCart (data) {
     try {
-      const addedPruct = await ProductInCar.create(productInCar);
-      return addedPruct;
+      const addPruct = await Carts.findByPk(data.cartId, {attributes: ['totalPrice']});
+      const cartPrice = addPruct.totalPrice;
+      const newPrice = parseFloat(cartPrice) + parseFloat(data.price);
+      await Carts.update({totalPrice: newPrice}, {where: {id: data.cartId}});
+      const result = await ProductInCar.create(data);
+      return result;
     } catch (error) {
       throw error;
     }

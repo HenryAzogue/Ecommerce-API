@@ -3,6 +3,8 @@ const ProductServices = require('../services/products.service');
 const getAllProducts = async (req, res, next)=> {
   try {
     const products = await ProductServices.getAll();
+    const availablePoduct = products.filter((item)=> item.availableQty > 0);
+    res.json(availablePoduct);
     res.json(products);
   } catch (error) {
     next(error);

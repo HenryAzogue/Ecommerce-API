@@ -43,7 +43,6 @@ const router = Router();
  *     tags: [Auth]
  *     requestBody:
  *       description: You will need email and password of the user previusly registed
- *       required: true
  *       content:
  *         application/json:
  *           schema:

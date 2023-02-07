@@ -2,6 +2,30 @@ const db            = require('../utils/database');
 const { DataTypes } = require('sequelize');
 const Users         = require('./users.model');
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     create:
+ *       type: object
+ *       properties:
+ *         userId:
+ *           type: integer
+ *           example: 1
+ *         totalPrice:
+ *           type: double
+ *           example: 24
+ *     getAllOrders:
+ *       type: object
+ *       properties:
+ *         userId:
+ *           type: integer
+ *           example: 1
+ *         totalPrice:
+ *           type: double
+ *           example: 24
+ */
+
 const Orders = db.define('orders', {
   id: {
     primaryKey:    true,

@@ -30,21 +30,18 @@ const bcrypt        = require('bcrypt');
  *     loginResponse:
  *       type: object
  *       properties:
- *         firstname:
- *           type: string
- *           example: Henry
- *         lastname:
- *           type: string
- *           example: Azogue
  *         id:
  *           type: int
  *           example: 2
+ *         username:
+ *           type: string
+ *           example: Henry
  *         email:
  *           type: string
- *           example: hnrazogue@gmail.com
+ *           example: hnrazo@gmail.com
  *         token:
  *           type: string
- *           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+ *           example: hnrq12345
  *   securitySchemes:
  *     bearerAuth:
  *       type: http
@@ -87,7 +84,7 @@ const Users = db.define('users', {
   hooks: {
     beforeCreate: ( user, options )=> { 
       const { password } = user;
-      const hash = bcrypt.hashSync(password, 10);
+      const hash = bcrypt.hashSync(password, 8);
       user.password = hash;
     }
   }

@@ -1,25 +1,31 @@
 const Orders = require('../models/orders.model');
 const ProductInOrder = require('../models/productInOrder.model');
-const Products = require('../models/products.model');
 
 class OrdersServices {
   static async getAll (idUser){
     try {
       const result = await Orders.findAll({
-        where:      {idUser},
-        attributes: ['totalPrice', 'status'],
-        include:{
-          model:      ProductInOrder,
-          as:         'waiting_product',
-          attributes: ['price', 'quantity'],
-          include: {
-            model: Products,
-            as:    'waiting_products',
-            attributes: ['name', 'price']
-          }
-        }
+        where: {idUser}
       });
       return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async create (newOrder){
+    try {
+      const result = await Orders.create(newOrder);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async addProductsInOrder (array){
+    try {
+      array.forEach((item)=> ProductInOrder.create(item));
+      return;
     } catch (error) {
       throw error;
     }
